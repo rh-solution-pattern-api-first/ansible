@@ -1,0 +1,15 @@
+---
+- name: Run the role
+  hosts: localhost
+  gather_facts: false
+  run_once: true
+  become: false
+  pre_tasks:
+    - name: Set Ansible Python interpreter to k8s virtualenv
+      set_fact:
+        ansible_python_interpreter: /opt/virtualenvs/k8s/bin/python
+  roles:
+    - role: ocp4_workload_ama_demo_app_services_shared
+      vars:
+        ocp_username: "system:admin"
+        ACTION: "provision"
