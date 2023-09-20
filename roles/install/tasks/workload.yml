@@ -1,0 +1,46 @@
+---
+
+- name: Install AMQ Streams Operator
+  when: lab_setup | bool
+  ansible.builtin.include_tasks: amq_streams_operator.yml
+
+- name: Install OpenShift Gitops
+  ansible.builtin.include_tasks: openshift_gitops.yml
+
+- name: Install Service Binding Operator
+  when: lab_setup | bool
+  ansible.builtin.include_tasks: service_binding_operator.yml
+
+- name: Install 3scale operator
+  when: lab_setup | bool
+  ansible.builtin.include_tasks: threescale_operator.yml
+
+- name: Install Apicurio Designer operator
+  when: lab_setup | bool
+  ansible.builtin.include_tasks: apicurio_designer_operator.yml
+
+- name: Install Service Registry operator
+  when: lab_setup | bool
+  ansible.builtin.include_tasks: service_registry_operator.yml
+
+- name: Deploy 3scale and tenants
+  when: lab_setup | bool
+  ansible.builtin.include_tasks: threescale.yml
+
+- name: Install Apicurio Designer application
+  when: lab_setup | bool
+  ansible.builtin.include_tasks: apicurio_designer.yml
+
+- name: Set up app for streaming and api modules
+  when: lab_setup | bool
+  ansible.builtin.include_tasks: setup_app_services.yml
+
+- name: Setup APIM module
+  when: lab_setup | bool
+  ansible.builtin.include_tasks: apim.yml
+
+- name: Set up app services lab - bookbag gitops
+  when:
+    - lab_setup | bool
+    - bookbag | bool
+  ansible.builtin.include_tasks: setup-app-services-lab-bookbag.yml

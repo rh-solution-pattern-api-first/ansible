@@ -1,0 +1,347 @@
+become_override: false
+ocp_username: opentlc-mgr
+silent: false
+
+# ------------------------------------------------
+# App Services Lab Deployment
+# ------------------------------------------------
+lab_setup: true
+
+# Shared Users
+user_count: 1
+user_prefix: user
+
+# ------------------------------------------------
+# Service Binding Operator
+# ------------------------------------------------
+
+service_binding_operator_name: rh-service-binding-operator
+service_binding_operator_namespace: openshift-operators
+service_binding_operator_catalog: redhat-operators
+service_binding_operator_channel: stable
+service_binding_operator_automatic_install_plan_approval: true
+service_binding_operator_starting_csv: ""
+service_binding_operator_csv_nameprefix: service-binding-operator
+service_binding_operator_use_catalog_snapshot: true
+service_binding_operator_catalogsource_name: redhat-operators-snapshot-service-binding
+service_binding_operator_catalog_snapshot_image: quay.io/gpte-devops-automation/olm_snapshot_redhat_catalog
+service_binding_operator_catalog_snapshot_image_tag: "v4.13_2023_06_26"
+
+# ------------------------------------------------
+# AMQ Streams Operator
+# ------------------------------------------------
+
+amq_streams_operator_channel: ""
+amq_streams_operator_automatic_install_plan_approval: true
+amq_streams_operator_starting_csv: ""
+amq_streams_operator_name: amq-streams
+amq_streams_operator_namespace: openshift-operators
+amq_streams_operator_catalog: redhat-operators
+amq_streams_operator_csv_prefix: amqstreams
+amq_streams_operator_wait_for_deploy: true
+amq_streams_operator_use_catalog_snapshot: true
+amq_streams_operator_catalogsource_name: redhat-operators-snapshot-amq-streams
+amq_streams_operator_catalog_snapshot_image: quay.io/gpte-devops-automation/olm_snapshot_redhat_catalog
+amq_streams_operator_catalog_snapshot_image_tag: "v4.13_2023_06_26"
+amq_streams_operator_requests_memory: 768Mi
+amq_streams_operator_limits_memory: 768Mi
+
+# ------------------------------------------------
+# Threescale Operator
+# ------------------------------------------------
+
+threescale_operator_name: 3scale-operator
+threescale_operator_namespace: openshift-operators
+threescale_operator_channel: "threescale-2.13"
+threescale_operator_automatic_install_plan_approval: true
+threescale_operator_starting_csv: ""
+threescale_operator_catalog: redhat-operators
+threescale_operator_csv_prefix: 3scale-operator
+threescale_operator_wait_for_deploy: true
+threescale_operator_use_catalog_snapshot: true
+threescale_operator_catalogsource_name: redhat-operators-snapshot-threescale
+threescale_operator_catalog_snapshot_image: quay.io/gpte-devops-automation/olm_snapshot_redhat_catalog
+threescale_operator_catalog_snapshot_image_tag: "v4.13_2023_06_26"
+threescale_operator_requests_memory: 1024Mi
+threescale_operator_limits_memory: 1024Mi
+
+# ------------------------------------------------
+# Apicurio Designer Operator
+# ------------------------------------------------
+
+apicurio_operator_channel: ""
+apicurio_operator_automatic_install_plan_approval: true
+apicurio_operator_starting_csv: ""
+apicurio_operator_operator_name: fuse-apicurito
+apicurio_operator_operator_namespace: apicurio-designer
+apicurio_operator_operator_catalog: redhat-operators
+apicurio_operator_csv_prefix: fuse-apicurito
+apicurio_operator_wait_for_deploy: true
+apicurio_operator_deployment: fuse-apicurito
+apicurio_operator_use_catalog_snapshot: false
+apicurio_operator_catalogsource_name: redhat-operators-snapshot-apicurio
+apicurio_operator_catalog_snapshot_image: quay.io/gpte-devops-automation/olm_snapshot_redhat_catalog
+apicurio_operator_catalog_snapshot_image_tag: "v4.13_2023_06_26"
+
+# ------------------------------------------------
+# Service Registry Operator
+# ------------------------------------------------
+
+service_registry_channel: "2.x"
+service_registry_automatic_install_plan_approval: true
+service_registry_starting_csv: ""
+service_registry_operator_name: service-registry-operator
+service_registry_operator_namespace: openshift-operators
+service_registry_operator_catalog: redhat-operators
+service_registry_csv_prefix: service-registry-operator
+service_registry_wait_for_deploy: true
+service_registry_use_catalog_snapshot: false
+service_registry_catalogsource_name: redhat-operators-snapshot-service-registry
+service_registry_catalog_snapshot_image: quay.io/gpte-devops-automation/olm_snapshot_redhat_catalog
+service_registry_catalog_snapshot_image_tag: "v4.13_2023_06_26"
+
+# ------------------------------------------------
+# App services
+# ------------------------------------------------
+
+# Namespace
+namespace_prefix: globex-
+
+app_services_application_name: globex-app-user
+app_services_application_namespace: openshift-gitops
+
+app_services_application_repo: https://github.com/rh-mad-app-services/mad-app-services-helm.git
+app_services_application_repo_tag: main
+app_services_application_repo_path: globex
+
+# Inventory app
+inventory_db_image: quay.io/globex-recommendation/inventory-database:app-mod-workshop
+inventory_service_image: quay.io/globex-recommendation/inventory:app-mod-workshop
+
+# Catalog app
+catalog_db_image: quay.io/globex-recommendation/catalog-database:app-mod-workshop
+catalog_service_image: quay.io/globex-recommendation/catalog:app-mod-workshop
+
+# Globex UI app
+globex_ui_image: quay.io/globex-recommendation/globex-recommendation-ui:app-mod-workshop
+
+# Activity Tracking app
+activity_tracking_service_image: quay.io/globex-recommendation/activity-tracking-service:app-mod-workshop
+
+# Recommendation Engine app
+recommendation_engine_image: quay.io/globex-recommendation/recommendation-engine:app-mod-workshop
+
+# Activity Tracking Simulator
+activity_tracking_simulator_image: >-
+  quay.io/globex-recommendation/activity-tracking-simulator:app-mod-workshop
+
+# Order Placement app
+order_placement_service_image: quay.io/globex-recommendation/order-placement-service:app-mod-workshop
+
+# ------------------------------------------------
+# Threescale
+# ------------------------------------------------
+
+threescale_application_namespace: openshift-gitops
+
+threescale_gitops_repo: https://github.com/rh-mad-app-services/mad-app-services-helm.git
+threescale_gitops_repo_tag: main
+threescale_gitops_repo_path: threescale
+
+threescale_namespace: 3scale
+
+threescale_apimanager_application_name: threescale
+
+threescale_minio_stateful: true
+threescale_minio_storageclass: gp3-csi
+threescale_minio_default_region: us-east-1
+threescale_minio_access_key_id: minio
+threescale_minio_secret_access_key: minio123
+
+threescale_master_domain: 3scale-master
+
+threescale_tenant_org_name_base: 3scale
+threescale_tenant_admin_password: "openshift"
+
+# ------------------------------------------------
+# Apicurio Designer
+# ------------------------------------------------
+
+apicurio_application_namespace: openshift-gitops
+apicurio_application_name: apicurio
+apicurio_namespace: "{{ apicurio_operator_operator_namespace }}"
+apicurio_gitops_repo: https://github.com/rh-mad-app-services/mad-app-services-helm.git
+apicurio_gitops_repo_tag: main
+apicurio_gitops_repo_path: apicurio-designer
+
+apicurio_replicas: 1
+apicurio_ui_host: apicurio-designer
+apicurio_generator_host: apicurio-generator
+
+# ------------------------------------------------
+# APIM Module
+# ------------------------------------------------
+
+apim_namespace_prefix: globex-apim-
+
+apim_application_namespace: openshift-gitops
+apim_application_name: apim-user
+apim_gitops_repo: https://github.com/rh-mad-app-services/mad-app-services-helm.git
+apim_gitops_repo_tag: main
+apim_gitops_repo_path: apim
+
+# ------------------------------------------------
+# Bookbag
+# ------------------------------------------------
+
+# Bookbag
+bookbag: false
+
+bookbag_application_name: bookbag
+bookbag_namespace_prefix: bookbag-
+
+# Bookbag ApplicationSet
+bookbag_applicationset_name: bookbag
+bookbag_applicationset_namespace: openshift-gitops
+bookbag_application_repo:
+  https://github.com/cloud-services-summit-connect-2022/cloud-services-bookbag-helm.git
+bookbag_application_repo_tag: main
+bookbag_application_repo_path: bookbag
+
+# ------------------------------------------------
+# Kafka
+# ------------------------------------------------
+kafka_enabled: true
+
+kafka_replicas: 2
+
+kafka_security_protocol: SASL_PLAINTEXT
+kafka_sasl_mechanism: SCRAM-SHA-512
+kafka_client_id: globex
+kafka_client_secret: globex
+
+
+# ------------------------------------------------
+# OpenShift Gitops
+# ------------------------------------------------
+
+openshift_gitops_channel: latest
+openshift_gitops_automatic_install_plan_approval: true
+openshift_gitops_starting_csv: ""
+openshift_gitops_pipelines_csv_prefix: openshift-pipelines-operator-rh
+
+openshift_gitops_setup_cluster_admin: true
+
+openshift_gitops_update_route_tls: true
+
+openshift_gitops_update_resources: true
+
+# ApplicationSet Controller
+openshift_gitops_applicationset_controller_update: false
+openshift_gitops_applicationset_controller_requests_cpu: 250m
+openshift_gitops_applicationset_controller_requests_memory: 512Mi
+openshift_gitops_applicationset_controller_limits_cpu: "2"
+openshift_gitops_applicationset_controller_limits_memory: 1Gi
+
+# Application Controller
+openshift_gitops_controller_update: true
+openshift_gitops_controller_requests_cpu: "2"
+openshift_gitops_controller_requests_memory: 4Gi
+openshift_gitops_controller_limits_cpu: "4"
+openshift_gitops_controller_limits_memory: 4Gi
+# Setting a default value for reconcile timeout as it needs to be configurable
+# Reduce this value if you want to sync more frequently
+openshift_gitops_controller_app_sync: 3m
+
+openshift_gitops_controller_remove_memory_limits: true
+
+# Redis
+openshift_gitops_redis_update: false
+openshift_gitops_redis_requests_cpu: 250m
+openshift_gitops_redis_requests_memory: 128Mi
+openshift_gitops_redis_limits_cpu: 500m
+openshift_gitops_redis_limits_memory: 256Mi
+
+# Repo Server
+openshift_gitops_repo_update: true
+openshift_gitops_repo_requests_cpu: 500m
+openshift_gitops_repo_requests_memory: 512Mi
+openshift_gitops_repo_limits_cpu: "2"
+openshift_gitops_repo_limits_memory: 2Gi
+
+# DEX
+openshift_gitops_dex_update: false
+openshift_gitops_dex_requests_cpu: 125m
+openshift_gitops_dex_requests_memory: 128Mi
+openshift_gitops_dex_limits_cpu: 500m
+openshift_gitops_dex_limits_memory: 256Mi
+
+# Server
+openshift_gitops_server_update: false
+openshift_gitops_server_requests_cpu: 250m
+openshift_gitops_server_requests_memory: 128Mi
+openshift_gitops_server_limits_cpu: 500m
+openshift_gitops_server_limits_memory: 256Mi
+
+openshift_gitops_resource_customizations: |
+  operators.coreos.com/Subscription:
+    health.lua: |
+      health_status = {}
+      if obj.status ~= nil then
+        if obj.status.conditions ~= nil then
+          numDegraded = 0
+          numPending = 0
+          msg = ""
+          for i, condition in pairs(obj.status.conditions) do
+            msg = msg .. i .. ": " .. condition.type .. " | " .. condition.status .. "\n"
+            if condition.type == "InstallPlanPending" and condition.status == "True" then
+              numPending = numPending + 1
+            elseif (condition.type == "InstallPlanMissing" and condition.reason ~= "ReferencedInstallPlanNotFound") then
+              numDegraded = numDegraded + 1
+            elseif (condition.type == "CatalogSourcesUnhealthy" or condition.type == "InstallPlanFailed") and condition.status == "True" then
+              numDegraded = numDegraded + 1
+            end
+          end
+          if numDegraded == 0 and numPending == 0 then
+            health_status.status = "Healthy"
+            health_status.message = msg
+            return health_status
+          elseif numPending > 0 and numDegraded == 0 then
+            health_status.status = "Progressing"
+            health_status.message = "An install plan for a subscription is pending installation"
+            return health_status
+          else
+            health_status.status = "Degraded"
+            health_status.message = msg
+            return health_status
+          end
+        end
+      end
+      health_status.status = "Progressing"
+      health_status.message = "An install plan for a subscription is pending installation"
+      return health_status
+
+# e.g.
+# openshift_gitops_resource_customizations: |
+  # argoproj.io/Application:
+  #   health.lua: |
+  #     hs = {}
+  #     hs.status = "Progressing"
+  #     hs.message = ""
+  #     if obj.status ~= nil then
+  #       if obj.status.health ~= nil then
+  #         hs.status = obj.status.health.status
+  #         hs.message = obj.status.health.message
+  #       end
+  #     end
+  #     return hs
+# --------------------------------
+# Operator Catalog Snapshot Settings
+# --------------------------------
+# See https://github.com/redhat-cop/agnosticd/blob/development/docs/Operator_Catalog_Snapshots.adoc
+# for instructions on how to set up catalog snapshot images
+
+openshift_gitops_use_catalog_snapshot: false
+openshift_gitops_catalogsource_name: redhat-operators-snapshot-gitops
+openshift_gitops_catalog_snapshot_image: quay.io/gpte-devops-automation/olm_snapshot_redhat_catalog
+openshift_gitops_catalog_snapshot_image_tag: v4.10_2022_07_18

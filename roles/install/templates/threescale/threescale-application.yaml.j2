@@ -1,0 +1,50 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: {{ threescale_apimanager_application_name }}
+  namespace: {{ threescale_application_namespace }}
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io/foreground
+spec:
+  destination:
+    name: ""
+    namespace: {{ threescale_namespace }}
+    server: 'https://kubernetes.default.svc'
+  project: default
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: false
+  source:
+    repoURL: {{ threescale_gitops_repo }}
+    targetRevision: {{ threescale_gitops_repo_tag }}
+    path: {{ threescale_gitops_repo_path }}
+    helm:
+      values: |
+        global:
+          openshift:
+            subdomain: {{ r_openshift_subdomain }}
+        apimanager:
+          minio:
+            accessKey: {{ threescale_minio_access_key_id }}
+            secretKey: {{ threescale_minio_secret_access_key }}
+            region: {{ threescale_minio_default_region }}
+            pvc:
+              storageClass: {{ threescale_minio_storageclass }}
+          system:
+            adminAccessToken: {{ r_threescale_admin_access_token | b64encode }}
+            adminPassword: {{ r_threescale_admin_password | b64encode }}
+            masterAccessToken: {{ r_threescale_master_access_token | b64encode }}
+            masterPassword: {{ r_threescale_master_password | b64encode }}
+            masterDomain: {{ threescale_master_domain }}
+        tenant:
+          loop:
+            prefix: {{ user_prefix }}
+            count: {{ user_count }}
+          tenant:
+            adminPassword: {{ threescale_tenant_admin_password | b64encode }}
+            organizationName: "{{ threescale_tenant_org_name_base }}"
+          system:
+            masterDomain: {{ threescale_master_domain }}
+          hook:
+            host: {{ threescale_master_domain }}.{{ r_openshift_subdomain }}

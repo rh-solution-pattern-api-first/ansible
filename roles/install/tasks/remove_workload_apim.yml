@@ -1,0 +1,25 @@
+---
+
+- name: Create usernames
+  ansible.builtin.set_fact:
+    _users: |
+       {{ _users |
+       default([]) + [user_prefix + item | string] }}
+  loop: "{{ range(1, ((user_count | int) + 1)) | list }}"
+
+- name: Remove ArgoCD applications
+  kubernetes.core.k8s:
+    state: absent
+    api_version: argoproj.io/v1alpha1
+    kind: Application
+    name: "{{ apim_application_name | replace('user', item) }}"
+    namespace: "{{ apim_application_namespace }}"
+  loop: "{{ _users }}"
+
+- name: Remove user namespaces
+  kubernetes.core.k8s:
+    state: absent
+    resource_definition: "{{ lookup('template', 'namespace/namespace.yaml.j2') }}"
+  vars:
+    _namespaces:
+      - "{{ apim_namespace_prefix }}user"

@@ -1,0 +1,29 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: {{ apicurio_application_name }}
+  namespace: {{ apicurio_application_namespace }}
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io/foreground
+spec:
+  destination:
+    name: ""
+    namespace: {{ apicurio_namespace }}
+    server: 'https://kubernetes.default.svc'
+  project: default
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: false
+  source:
+    repoURL: {{ apicurio_gitops_repo }}
+    targetRevision: {{ apicurio_gitops_repo_tag }}
+    path: {{ apicurio_gitops_repo_path}}
+    helm:
+      values: |
+
+        replicaCount: {{ apicurio_replicas }}
+
+        apicurito:
+          generatorHost: {{ apicurio_generator_host }}.{{ r_openshift_subdomain }}
+          uiHost: {{ apicurio_ui_host }}.{{ r_openshift_subdomain }}

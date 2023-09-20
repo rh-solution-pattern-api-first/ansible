@@ -1,0 +1,16 @@
+---
+
+- name: Remove 3scale application
+  kubernetes.core.k8s:
+    state: absent
+    api_version: argoproj.io/v1alpha1
+    kind: Application
+    name: "{{ threescale_apimanager_application_name }}"
+    namespace: "{{ threescale_application_namespace }}"
+
+- name: Remove namespace for 3scale - {{ threescale_namespace }}
+  kubernetes.core.k8s:
+    api_version: v1
+    kind: Namespace
+    name: "{{ threescale_namespace }}"
+    state: absent
