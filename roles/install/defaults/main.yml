@@ -76,7 +76,7 @@ namespace_prefix: globex-
 app_services_application_name: globex-app-user
 app_services_application_namespace: openshift-gitops
 
-app_services_application_repo: https://github.com/rh-mad-app-services/mad-app-services-helm.git
+app_services_application_repo: https://github.com/rh-solution-pattern-api-first/api-first-helm.git
 app_services_application_repo_tag: main
 app_services_application_repo_path: globex
 
@@ -110,7 +110,7 @@ order_placement_service_image: quay.io/globex-recommendation/order-placement-ser
 
 threescale_application_namespace: openshift-gitops
 
-threescale_gitops_repo: https://github.com/rh-mad-app-services/mad-app-services-helm.git
+threescale_gitops_repo: https://github.com/rh-solution-pattern-api-first/api-first-helm.git
 threescale_gitops_repo_tag: main
 threescale_gitops_repo_path: threescale
 
@@ -136,7 +136,7 @@ threescale_tenant_admin_password: "openshift"
 apicurio_application_namespace: openshift-gitops
 apicurio_application_name: apicurio
 apicurio_namespace: "{{ apicurio_operator_operator_namespace }}"
-apicurio_gitops_repo: https://github.com/rh-mad-app-services/mad-app-services-helm.git
+apicurio_gitops_repo: https://github.com/rh-solution-pattern-api-first/api-first-helm.git
 apicurio_gitops_repo_tag: main
 apicurio_gitops_repo_path: apicurio-designer
 
@@ -152,7 +152,7 @@ apim_namespace_prefix: globex-apim-
 
 apim_application_namespace: openshift-gitops
 apim_application_name: apim-user
-apim_gitops_repo: https://github.com/rh-mad-app-services/mad-app-services-helm.git
+apim_gitops_repo: https://github.com/rh-solution-pattern-api-first/api-first-helm.git
 apim_gitops_repo_tag: main
 apim_gitops_repo_path: apim
 
@@ -311,3 +311,26 @@ openshift_gitops_use_catalog_snapshot: false
 openshift_gitops_catalogsource_name: redhat-operators-snapshot-gitops
 openshift_gitops_catalog_snapshot_image: quay.io/gpte-devops-automation/olm_snapshot_redhat_catalog
 openshift_gitops_catalog_snapshot_image_tag: v4.10_2022_07_18
+
+
+
+
+# ------------------------------------------------
+# AMQ Streams Operator
+# ------------------------------------------------
+
+amq_streams_operator_channel: ""
+amq_streams_operator_automatic_install_plan_approval: true
+amq_streams_operator_starting_csv: ""
+amq_streams_operator_name: amq-streams
+amq_streams_operator_namespace: openshift-operators
+amq_streams_operator_catalog: redhat-operators
+amq_streams_operator_csv_prefix: amqstreams
+amq_streams_operator_wait_for_deploy: true
+amq_streams_operator_use_catalog_snapshot: false
+amq_streams_operator_catalogsource_name: ""
+amq_streams_operator_catalogsource_namespace: openshift-operators
+amq_streams_operator_catalog_snapshot_image: ""
+amq_streams_operator_catalog_snapshot_image_tag: ""
+amq_streams_operator_limits_memory: 768Mi
+amq_streams_operator_requests_memory: 768Mi
