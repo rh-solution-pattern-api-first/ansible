@@ -7,6 +7,11 @@
   when: lab_setup | bool
   ansible.builtin.include_tasks: threescale_operator.yml
 
+- name: Install AMQ Streams operator
+  when: lab_setup | bool
+  ansible.builtin.include_tasks: amq_streams_operator.yml
+
+
 - name: Install Apicurio Designer operator
   when: lab_setup | bool
   ansible.builtin.include_tasks: apicurio_designer_operator.yml
